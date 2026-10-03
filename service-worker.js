@@ -1,10 +1,11 @@
-const CACHE_VERSION = 'ecs-booking-1.0.6';
+const CACHE_VERSION = 'ecs-booking-1.0.7';
 const APP_SHELL = [
   './',
   './index.html',
   './styles.css',
   './app.js',
   './manifest.webmanifest',
+  './assets/avatar-andrea.svg',
   './assets/logo-ecs-224.webp',
   './assets/logo-ecs-blanco-320.webp',
   './assets/hero-clase-700.webp',
