@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'ecs-booking-v1';
+const CACHE_VERSION = 'ecs-booking-v2';
 const APP_SHELL = [
   './',
   './index.html',
