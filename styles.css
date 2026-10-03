@@ -56,3 +56,16 @@
 .live-class-button small{font-size:.62rem;color:#dff5ea;white-space:nowrap}.live-class-button b{font-size:.82rem}
 @keyframes livePulse{70%{box-shadow:0 0 0 8px #27a66f00}100%{box-shadow:0 0 0 0 #27a66f00}}
 @media(max-width:700px){.booking-row.live-booking{display:grid;grid-template-columns:54px 43px minmax(0,1fr);gap:10px;box-sizing:border-box;width:100%;min-width:0}.booking-row.live-booking .booking-date{width:54px}.booking-row.live-booking .booking-info{min-width:0}.row-actions.live-actions{grid-column:1/-1;grid-template-columns:1fr 1fr;min-width:0;width:100%}.live-class-button{grid-column:1/-1}.live-class-button b{font-size:.78rem}}
+/* Hoja de instalacion para iOS */
+.ios-sheet{width:min(400px,calc(100% - 26px));border-radius:20px}
+.ios-sheet-body{padding:26px;display:grid;gap:14px}
+.ios-sheet h2{margin:0;font-size:1.28rem}
+.ios-sheet p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.5}
+.ios-sheet .dialog-mark{color:var(--deep)}
+.ios-steps{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:13px}
+.ios-steps li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}
+.ios-steps li>span{width:28px;height:28px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-weight:900;font-size:.78rem}
+.ios-steps li>div{font-size:.92rem;line-height:1.55}
+.ios-share{display:inline-flex;vertical-align:-4px;margin-left:5px;color:#007aff}
+.ios-note{font-size:.8rem!important;background:var(--paper);border-radius:11px;padding:11px 13px;color:var(--ink)!important}
+.ios-sheet .btn{width:100%;margin-top:2px;min-height:48px}
