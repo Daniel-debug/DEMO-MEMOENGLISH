@@ -88,3 +88,22 @@
 }
 /* Version desplegada, al pie del menu lateral */
 .app-version{order:9;font-size:.66rem;letter-spacing:.07em;color:#ffffff66;text-align:center;padding-top:4px;font-variant-numeric:tabular-nums}
+/* Boton de instalar: sobre el azul del menu heredaba el boton gris del sistema
+   y se perdia. Amarillo de marca con texto azul profundo, que da 8.8:1. */
+.install-app{
+  display:flex;align-items:center;gap:11px;width:100%;min-height:48px;
+  border:0;cursor:pointer;border-radius:13px;padding:10px 13px;
+  background:linear-gradient(135deg,#fcda00 0%,#ffd02e 55%,#ffc23d 100%);
+  color:#16232f;font-family:inherit;font-size:.84rem;font-weight:900;letter-spacing:.015em;
+  box-shadow:0 9px 22px -9px rgba(252,218,0,.55), inset 0 1px 0 rgba(255,255,255,.55);
+  transition:transform .24s var(--ease), box-shadow .24s var(--ease);
+}
+.install-app:hover{transform:translateY(-2px);box-shadow:0 15px 28px -9px rgba(252,218,0,.75), inset 0 1px 0 rgba(255,255,255,.6)}
+.install-app:active{transform:translateY(0) scale(.985)}
+.install-app:focus-visible{outline:3px solid #ffffffcc;outline-offset:3px}
+.install-ic{
+  display:grid;place-items:center;width:30px;height:30px;flex:none;
+  border-radius:10px;background:#16232f;color:#fcda00;
+}
+.install-ic svg{width:15px;height:15px}
+.install-label{flex:1;text-align:left;line-height:1.2}
