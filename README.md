@@ -52,9 +52,18 @@ Servida por IP en la red local tampoco funcionaría; en `localhost` sí, por exc
 
 ### Al publicar una actualización
 
-El service worker cachea. Para forzar que todos los dispositivos tomen una versión nueva,
-cambiar `CACHE_VERSION` en `service-worker.js` (`ecs-booking-v1` → `v2`...). Sin eso, el
-HTML y los recursos igual se refrescan, pero en la carga siguiente y no en la inmediata.
+El número de versión vive en **dos sitios y debe subirse en los dos**:
+
+| Archivo | Constante | Para qué |
+|---|---|---|
+| `app.js` | `APP_VERSION` | Se muestra al pie del menú lateral |
+| `service-worker.js` | `CACHE_VERSION` | Nombra la caché; al cambiar, se descarta la anterior |
+
+Llevan el mismo número a propósito (`1.0.5` y `ecs-booking-1.0.5`). Así, si el menú
+lateral de un teléfono muestra una versión vieja, se sabe de inmediato que está sirviendo
+una caché anterior y basta con una recarga forzada.
+
+
 
 ## Qué contiene
 

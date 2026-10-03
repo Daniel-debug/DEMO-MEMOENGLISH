@@ -86,3 +86,5 @@
   .checkout-layout>.order-summary{order:-1}
   .checkout-layout>.checkout-form{order:0}
 }
+/* Version desplegada, al pie del menu lateral */
+.app-version{order:9;font-size:.66rem;letter-spacing:.07em;color:#ffffff66;text-align:center;padding-top:4px;font-variant-numeric:tabular-nums}
