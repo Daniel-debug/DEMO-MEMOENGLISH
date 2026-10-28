@@ -4,10 +4,9 @@ Actualizado: 6 de octubre de 2026.
 
 Repositorio actual: `C:\Users\el_da\Documents\git-vega`. Versión del prototipo: **2.3.1-ui**.
 
-La documentación funcional actual está en
-`documentos/Historias_de_usuario_ECS_v4_4.docx`. Las capturas están en
-`documentos/capturas/`. Los anexos distinguen funciones demostradas, propuestas
-y hallazgos pendientes; el prototipo sigue usando datos en memoria.
+El flujo del alumno se documenta en `FLUJO_ALUMNO_UI.md` y `PRIMER_ACCESO_UI.md`.
+Las capturas de la plataforma están en `documentos/capturas/`. El prototipo sigue
+usando datos en memoria.
 
 Prototipo navegable de la plataforma de reservas de English Club School. Está construido
 solamente con **HTML, CSS y JavaScript**, usa datos simulados y no depende de WordPress,
