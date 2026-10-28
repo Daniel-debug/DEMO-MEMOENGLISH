@@ -39,7 +39,7 @@ enter=function(role){
  else location.hash='#/teacher-dashboard';
 };
 routes.onboarding=function(){
- if(journey.completed&&!journey.editing){location.hash='#/dashboard';return;}
+ if(journey.completed&&!journey.editing){location.replace('#/dashboard');return;}
  let keys=journeyKeys(),q=journeyQuestion();
  if(!keys.includes(q.key)){onboardingStep=0;q=journeyQuestion();}
  const index=keys.indexOf(q.key),value=onboardingAnswers[q.key]||'',last=index===keys.length-1;
@@ -56,7 +56,7 @@ routes.onboarding=function(){
 };
 function preferenceRows(profile){return onboardingQuestions.filter(q=>q.key!=='industry'&&q.key!=='job'||['Carrera y negocios','Inglés para el trabajo'].includes(profile.goal)).map(q=>`<div><dt>${{goal:'Tu objetivo',industry:'Tu área',job:'Tu ocupación',deadline:'Tu ritmo',level:'Tu nivel actual'}[q.key]}</dt><dd>${safe(profile[q.key]||'Sin especificar')}</dd></div>`).join('');}
 routes['onboarding-resumen']=function(){
- if(!onboardingAnswers.goal||!onboardingAnswers.deadline||!onboardingAnswers.level){location.hash='#/onboarding';return;}
+ if(!onboardingAnswers.goal||!onboardingAnswers.deadline||!onboardingAnswers.level){location.replace('#/onboarding');return;}
  $('#content').innerHTML=`<section class="onboarding-wizard journey-wizard">${journeyAside('level')}<section class="onboarding-body journey-summary"><span class="journey-summary-mark" aria-hidden="true">✓</span><span class="eyebrow">ESTE ES TU PUNTO DE PARTIDA</span><h2>${journey.editing?'Un plan que evoluciona contigo.':'Tu camino empieza a tomar forma.'}</h2><p>Estas preferencias nos ayudan a conocerte. Puedes actualizarlas cuando cambien tus metas.</p><dl class="journey-preferences">${preferenceRows(onboardingAnswers)}</dl><div class="journey-summary-actions"><button class="btn ghost" data-review-answers>Revisar respuestas</button><button class="btn" data-finish-journey>${journey.editing?'Guardar preferencias':'Conocer mi espacio'} →</button></div><p class="onboarding-footnote">${journey.editing?'Actualizar preferencias no cambia tu progreso ni tus reservas.':'Sin compras ni compromisos. Primero, conoce tu programa.'}</p></section></section>`;
  $('[data-review-answers]').onclick=()=>{onboardingStep=0;location.hash='#/onboarding';};
  $('[data-finish-journey]').onclick=()=>{
@@ -70,7 +70,7 @@ function cancelPreferenceUpdate(){journey.editing=false;onboardingAnswers={...le
 function courseStage(taken){return taken>=PROGRAM_TOTAL?'Programa completado':taken>96?'Avanzado':taken>48?'Intermedio':'Básico';}
 const dashboardBeforeJourney=routes.dashboard;
 routes.dashboard=function(){
- if(!journey.completed){location.hash='#/onboarding';return;}
+ if(!journey.completed){location.replace('#/onboarding');return;}
  dashboardBeforeJourney();
  const firstVisit=!journey.welcomeSeen,profile=learner.profile||{},taken=learner.taken;
  $('.content-head')?.remove();
@@ -98,5 +98,5 @@ document.addEventListener('click',event=>{if(event.target.closest('[data-logout]
 addEventListener('pagehide',saveJourney);
 // Resume the demo in the right place when a bookmarked login page is reopened.
 addEventListener('DOMContentLoaded',()=>{
- if(state.auth&&['#/login','#/registro'].includes(location.hash))location.hash=journey.completed?'#/dashboard':'#/onboarding';
+ if(state.auth&&['','#','#/','#/login','#/registro'].includes(location.hash))location.replace(journey.completed?'#/dashboard':'#/onboarding');
 });

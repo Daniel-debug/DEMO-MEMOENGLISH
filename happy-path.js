@@ -78,7 +78,7 @@ const scheduleDates=()=>{const pkg=learner.package,left=pkg.count-(pkg.scheduled
  while(list.filter(x=>!x.skip).length<left){d.setDate(d.getDate()+1);if(d>end)break;const time=schedule.days[d.getDay()];if(!time)continue;const iso=isoDate(d);if(booked.has(iso))continue;list.push({iso,time,skip:schedule.skip.has(iso),day:new Date(d)});}
  return {list,left};};
 routes.reservar=()=>{
- if(!hasActivePackage()){purchase={step:0,count:0,teacher:'',date:'',time:''};location.hash='#/paquetes';return;}
+ if(!hasActivePackage()){purchase={step:0,count:0,teacher:'',date:'',time:''};location.replace('#/paquetes');return;}
  const pkg=learner.package,perWeek=pkg.perWeek||Math.max(1,Math.round(pkg.count/4)),left=pkg.count-(pkg.scheduled||0),until=new Date(pkg.expires).toLocaleDateString('es-MX',{day:'numeric',month:'long'});
  if(left<=0){$('#content').innerHTML=`${head('Reservar','Agenda tus clases','')}${WIP_BANNER}<section class="panel sched-done"><span class="review-count">✓</span><h2>Ya agendaste todas tus clases</h2><p>Tus clases son vigentes hasta el ${until}. Cuando quieras más, encuéntralas en la Tienda.</p><div class="actions"><a class="btn dark" href="#/reservas">Ver mis reservas</a><a class="btn ghost" href="#/tienda">Ir a la tienda</a></div></section>`;return;}
  if(!schedule){const last=state.bookings.find(b=>b.teacher)||{},time=last.time||'18:00';schedule={teacher:last.teacher||MOCK.teachers[0][1],days:Object.fromEntries((DEFAULT_DAYS[perWeek]||DEFAULT_DAYS[3]).map(d=>[d,time])),skip:new Set()};}
@@ -122,7 +122,7 @@ routes.login=()=>studentAuth(false);
 routes.registro=()=>studentAuth(true);
 const studentProfile=routes.perfil;
 routes.perfil=()=>{studentProfile();$('[data-role]')?.remove();};
-routes['teacher-dashboard']=()=>{state.role='student';location.hash='#/dashboard';};
+routes['teacher-dashboard']=()=>{state.role='student';location.replace('#/dashboard');};
 const centeredStudentAuth=studentAuth;
 studentAuth=function(register=false){
  centeredStudentAuth(register);

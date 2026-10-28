@@ -1,11 +1,11 @@
-const CACHE_VERSION = 'ecs-booking-2.3.1-ui';
+const CACHE_VERSION = 'ecs-booking-2.3.2-ui';
 const APP_SHELL = [
   './',
   './index.html',
-  './styles.css?v=2.3.1',
-  './app.js?v=2.3.1',
-  './happy-path.js?v=2.3.1',
-  './journey.js?v=2.3.1',
+  './styles.css?v=2.3.2',
+  './app.js?v=2.3.2',
+  './happy-path.js?v=2.3.2',
+  './journey.js?v=2.3.2',
   './assets/onboarding-goal.webp',
   './assets/onboarding-industry.webp',
   './assets/onboarding-profession.webp',
