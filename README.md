@@ -2,7 +2,7 @@
 
 Actualizado: 6 de octubre de 2026.
 
-Repositorio actual: `C:\Users\el_da\Documents\git-vega`. Versión del prototipo: **2.3.0-ui**.
+Repositorio actual: `C:\Users\el_da\Documents\git-vega`. Versión del prototipo: **2.3.1-ui**.
 
 La documentación funcional actual está en
 `documentos/Historias_de_usuario_ECS_v4_4.docx`. Las capturas están en
@@ -67,7 +67,7 @@ El número de versión vive en **dos sitios y debe subirse en los dos**:
 | `app.js` | `APP_VERSION` | Se muestra al pie del menú lateral |
 | `service-worker.js` | `CACHE_VERSION` | Nombra la caché; al cambiar, se descarta la anterior |
 
-Llevan el mismo número a propósito (`2.3.0-ui` y `ecs-booking-2.3.0-ui`). Así, si el menú
+Llevan el mismo número a propósito (`2.3.1-ui` y `ecs-booking-2.3.1-ui`). Así, si el menú
 lateral de un teléfono muestra una versión vieja, se sabe de inmediato que está sirviendo
 una caché anterior y basta con una recarga forzada.
 
