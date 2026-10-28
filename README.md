@@ -5,7 +5,8 @@ Actualizado: 6 de octubre de 2026.
 Repositorio actual: `C:\Users\el_da\Documents\git-vega`. Versión del prototipo: **2.3.1-ui**.
 
 El flujo del alumno se documenta en `FLUJO_ALUMNO_UI.md` y `PRIMER_ACCESO_UI.md`.
-Las capturas de la plataforma están en `documentos/capturas/`. El prototipo sigue
+Los documentos de historias de usuario (.docx) y las capturas de la plataforma
+están en `documentos/`. El prototipo sigue
 usando datos en memoria.
 
 Prototipo navegable de la plataforma de reservas de English Club School. Está construido
