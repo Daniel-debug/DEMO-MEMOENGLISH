@@ -1,6 +1,13 @@
 # Propuesta de rediseño de la plataforma booking
 
-Actualizado: 3 de octubre de 2026.
+Actualizado: 6 de octubre de 2026.
+
+Repositorio actual: `C:\Users\el_da\Documents\git-vega`. Versión del prototipo: **2.3.0-ui**.
+
+La documentación funcional actual está en
+`documentos/Historias_de_usuario_ECS_v4_4.docx`. Las capturas están en
+`documentos/capturas/`. Los anexos distinguen funciones demostradas, propuestas
+y hallazgos pendientes; el prototipo sigue usando datos en memoria.
 
 Prototipo navegable de la plataforma de reservas de English Club School. Está construido
 solamente con **HTML, CSS y JavaScript**, usa datos simulados y no depende de WordPress,
@@ -9,8 +16,9 @@ MySQL, servicios externos ni paquetes de terceros.
 ## Ejecutar
 
 **Con Apache de XAMPP.** Hay un VirtualHost dedicado en
-`C:\xampp\apache\conf\extra\httpd-propuesta-booking.conf` que sirve esta carpeta en el
-puerto 8091. Basta con que Apache esté arriba desde el panel de XAMPP:
+`C:\xampp\apache\conf\extra\httpd-propuesta-booking.conf` utilizado por la instalación local anterior en el puerto 8091. Al trabajar en este
+repositorio hay que comprobar que su DocumentRoot apunte a la ruta actual.
+Esta configuración depende de la laptop y no forma parte del repositorio:
 
 - Propuesta: http://127.0.0.1:8091/
 
@@ -22,8 +30,8 @@ hoja carga con **675 reglas**. Sirve para una página estática simple; no para 
 
 ## Publicar en GitHub Pages
 
-La carpeta es completamente estática: **no necesita PHP, ni Node, ni base de datos.** Son
-19 archivos. Se sube tal cual.
+La carpeta es completamente estática: **no necesita PHP, ni Node, ni base de datos.** Los archivos de la aplicación se publican tal cual; `documentos/` contiene material
+de revisión, no recursos necesarios para ejecutar la interfaz.
 
 1. Crear el repositorio y subir el **contenido de esta carpeta en la raíz** del repo, no la
    carpeta dentro de otra.
@@ -59,7 +67,7 @@ El número de versión vive en **dos sitios y debe subirse en los dos**:
 | `app.js` | `APP_VERSION` | Se muestra al pie del menú lateral |
 | `service-worker.js` | `CACHE_VERSION` | Nombra la caché; al cambiar, se descarta la anterior |
 
-Llevan el mismo número a propósito (`1.0.5` y `ecs-booking-1.0.5`). Así, si el menú
+Llevan el mismo número a propósito (`2.3.0-ui` y `ecs-booking-2.3.0-ui`). Así, si el menú
 lateral de un teléfono muestra una versión vieja, se sabe de inmediato que está sirviendo
 una caché anterior y basta con una recarga forzada.
 
@@ -130,11 +138,12 @@ Se comprobó a 320 px y 390 px sin desbordamiento horizontal ni imágenes rotas.
 
 | Elemento | Ruta o dirección | Uso |
 |---|---|---|
-| Respaldo original de booking | `..\wordexpress_Segunda_parte\` | Fuente para analizar funciones y estructura |
+| Respaldo original de booking | `C:\Users\el_da\Desktop\MemoEnglish\wordexpress_Segunda_parte\` | Fuente para analizar funciones y estructura |
 | WordPress booking local | http://127.0.0.1:8086/ | Copia funcional con base y datos reales |
 | Propuesta estática | http://127.0.0.1:8091/ | Diseño navegable con datos simulados |
-| Referencia visual | `..\DEMO_REDISENO\` | Colores e imágenes; no modificar |
+| Referencia visual | `C:\Users\el_da\Desktop\MemoEnglish\DEMO_REDISENO\` | Colores e imágenes; no modificar |
 
 La propuesta no modifica el WordPress original ni su base de datos. Para convertirla en
 producto real todavía habría que integrar cada pantalla con WordPress, Amelia,
 WooCommerce, ClassPress, BP Better Messages y TeraWallet.
+
