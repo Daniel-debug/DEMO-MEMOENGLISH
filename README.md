@@ -1,19 +1,24 @@
 # Propuesta de rediseño de la plataforma booking
 
-Actualizado: 6 de octubre de 2026.
+Actualizado: 28 de octubre de 2026.
 
 Repositorio actual: `C:\Users\el_da\Documents\git-vega`. Versión del prototipo: **2.3.2-ui**.
 
-El flujo del alumno se documenta en `FLUJO_ALUMNO_UI.md` y `PRIMER_ACCESO_UI.md`.
-Los documentos de historias de usuario (.docx) y las capturas de la plataforma
-están en `documentos/`. El prototipo sigue
-usando datos en memoria.
+**Para retomar el trabajo (personas o IA), empezar por `CONTEXTO_IA.md`**: arquitectura,
+estado, reglas, convenciones y pendientes. El recorrido del alumno está en
+`FLUJO_ALUMNO_UI.md` y el cuestionario inicial en `PRIMER_ACCESO_UI.md`. Los documentos
+de historias de usuario (.docx) y las capturas de la plataforma están en `documentos/`.
+Los datos de ejemplo viven en memoria; el avance del alumno se guarda en `localStorage`.
 
 Prototipo navegable de la plataforma de reservas de English Club School. Está construido
 solamente con **HTML, CSS y JavaScript**, usa datos simulados y no depende de WordPress,
 MySQL, servicios externos ni paquetes de terceros.
 
 ## Ejecutar
+
+**Rápido:** `.claude/launch.json` levanta `python -m http.server 8093` → http://localhost:8093/.
+Igual que `php -S` (ver abajo), a veces corta conexiones y la hoja de estilos llega vacía;
+si la página aparece sin estilos, recargar.
 
 **Con Apache de XAMPP.** Hay un VirtualHost dedicado en
 `C:\xampp\apache\conf\extra\httpd-propuesta-booking.conf` utilizado por la instalación local anterior en el puerto 8091. Al trabajar en este
@@ -39,6 +44,10 @@ de revisión, no recursos necesarios para ejecutar la interfaz.
    carpeta `/ (root)`.
 3. Queda en `https://USUARIO.github.io/REPO/`.
 
+Hoy https://daniel-debug.github.io/DEMO-MEMOENGLISH/ publica desde la rama
+`feature/flujo-alumno-144-clases` (verificado el 28 de octubre de 2026). La landing
+(https://daniel-debug.github.io/DEMO-LANDING-MEMOENGLISH/) enlaza aquí en la misma pestaña.
+
 ### Por qué funciona en un subdirectorio
 
 Todas las rutas del proyecto son **relativas** —`./`, `assets/...`— y el enrutado es por
@@ -60,12 +69,14 @@ Servida por IP en la red local tampoco funcionaría; en `localhost` sí, por exc
 
 ### Al publicar una actualización
 
-El número de versión vive en **dos sitios y debe subirse en los dos**:
+El número de versión debe subirse en **todos estos sitios** en cada cambio:
 
 | Archivo | Constante | Para qué |
 |---|---|---|
 | `app.js` | `APP_VERSION` | Se muestra al pie del menú lateral |
-| `service-worker.js` | `CACHE_VERSION` | Nombra la caché; al cambiar, se descarta la anterior |
+| `service-worker.js` | `CACHE_VERSION` y los `?v=` de `APP_SHELL` | Nombra la caché; al cambiar, se descarta la anterior |
+| `index.html` | `?v=` de `styles.css` y los scripts | Evita que el navegador use archivos viejos |
+| `README.md` | Versión del prototipo | Referencia |
 
 Llevan el mismo número a propósito (`2.3.2-ui` y `ecs-booking-2.3.2-ui`). Así, si el menú
 lateral de un teléfono muestra una versión vieja, se sabe de inmediato que está sirviendo
@@ -89,8 +100,14 @@ La navegación reproduce las áreas que ya existen en el respaldo de
 - cuenta unificada con perfil de solo lectura y resumen de TeraWallet;
 - panel del maestro.
 
-No se agregaron módulos ajenos al producto original. Las acciones cambian datos en memoria
-y se reinician al recargar la página.
+No se agregaron módulos ajenos al producto original. Las acciones cambian datos en memoria;
+el perfil, el paquete y las reservas del alumno se guardan en `localStorage`.
+
+En la rama `feature/flujo-alumno-144-clases` se agregó el flujo del alumno del programa de
+144 clases (cuestionario, paquetes, agenda semanal, Tienda con clases compradas y
+bienvenida del maestro). El menú quedó en Inicio, Reservar, Mis reservas y Tienda, con
+Mensajes y Mi cuenta en el encabezado; Mis clases está oculta por ahora. Detalle en
+`FLUJO_ALUMNO_UI.md`.
 
 ## Pagos
 
@@ -106,11 +123,11 @@ copiaron desde `DEMO_REDISENO` a `PROPUESTA_BOOKING/assets/`. La carpeta
 `DEMO_REDISENO` es una referencia de solo lectura y **no debe modificarse**.
 
 El diseño incluye navegación lateral en escritorio, navegación inferior en móvil,
-transiciones, estados de proceso y maquetación adaptable. En móvil, el menú lateral sólo
-muestra las opciones que no están repetidas en la barra inferior. Puede cerrarse con el
-botón, tocando fuera o deslizándolo hacia la izquierda, y también abrirse con un gesto
-desde el borde izquierdo. El checkout incluye una tarjeta animada, cambio entre tarjeta y
-TeraWallet, estados visuales de procesamiento y un comprobante final detallado.
+transiciones, estados de proceso y maquetación adaptable. En móvil, el menú lateral
+muestra todas las opciones. Puede cerrarse con el botón, tocando fuera o deslizándolo
+hacia la izquierda, y también abrirse con un gesto desde el borde izquierdo. El checkout
+pide la tarjeta en campos agrupados (como Stripe Checkout), permite cambiar entre tarjeta
+y TeraWallet, y muestra estados de procesamiento y un comprobante final detallado.
 La reserva completa —servicio, maestro, fecha, horario, confirmación y paso a pago— usa el
 mismo sistema visual del checkout: superficies claras, azul verdoso suave, amarillo para
 la acción o selección actual y verde para pasos terminados. Cada avance vuelve al inicio
@@ -131,8 +148,13 @@ Se comprobó a 320 px y 390 px sin desbordamiento horizontal ni imágenes rotas.
 |---|---|
 | `index.html` | Documento base y metadatos de la propuesta |
 | `styles.css` | Sistema visual, componentes, animaciones y adaptación móvil |
-| `app.js` | Datos simulados, rutas, vistas e interacciones |
-| `assets/` | Copias optimizadas de logotipos, fotografía principal y maestros |
+| `app.js` | Datos simulados, rutas, vistas e interacciones (base) |
+| `happy-path.js` | Flujo del alumno: paquetes, checkout, Reservar, Tienda y Mensajes |
+| `journey.js` | Cuestionario inicial, bienvenida, preferencias y guardado en `localStorage` |
+| `service-worker.js` | Caché de la PWA |
+| `assets/` | Logotipos, fotografía principal, maestros e ilustraciones del cuestionario |
+| `documentos/` | Historias de usuario (.docx) y capturas de la plataforma anterior |
+| `CONTEXTO_IA.md` | Guía para retomar el trabajo: arquitectura, reglas y pendientes |
 
 ## Relación con el sitio original
 
