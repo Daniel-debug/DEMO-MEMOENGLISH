@@ -1,6 +1,6 @@
 # Contexto para IA y nuevos colaboradores
 
-Actualizado: 28 de octubre de 2026 · Versión del prototipo: **2.3.2-ui** · Rama: `feature/flujo-alumno-144-clases`.
+Actualizado: 28 de octubre de 2026 · Versión del prototipo: **2.5.0-ui** · Rama: `feature/flujo-alumno-144-clases`.
 
 Este archivo es el punto de entrada para retomar el trabajo sin el historial de la conversación. Explica qué hay, cómo está armado, qué decisiones se tomaron y qué falta. Leer después: `FLUJO_ALUMNO_UI.md` (recorrido del alumno) y `PRIMER_ACCESO_UI.md` (cuestionario inicial).
 
@@ -23,7 +23,7 @@ Prototipo navegable (HTML, CSS y JavaScript sin dependencias) de la plataforma d
 
 | Sitio | URL | Publica desde |
 |---|---|---|
-| Plataforma | https://daniel-debug.github.io/DEMO-MEMOENGLISH/ | Rama `feature/flujo-alumno-144-clases` (verificado: sirve 2.3.2-ui). `main` sigue en 1.0.7. |
+| Plataforma | https://daniel-debug.github.io/DEMO-MEMOENGLISH/ | Rama `feature/flujo-alumno-144-clases` (última publicación documentada: 2.3.2-ui; 2.4.1 es local, sin publicar). `main` sigue en 1.0.7. |
 | Landing | https://daniel-debug.github.io/DEMO-LANDING-MEMOENGLISH/ | Rama `main`. |
 
 Conexión entre ambos: "Inicia sesión" y "Acceso de alumnos" de la landing abren la plataforma **en la misma pestaña**. La plataforma enlaza de vuelta con `LANDING_URL` (logo, "Volver al inicio", Método, Plataforma, Cursos, Precios, Maestros), y el botón Atrás del navegador regresa a la landing porque las redirecciones internas usan `location.replace`.
@@ -37,6 +37,8 @@ Los scripts se cargan en este orden (`index.html`) y cada uno **sobrescribe** pa
 3. **`journey.js`**: cuestionario inicial, bienvenida del tablero, preferencias en Mi cuenta y **persistencia** en `localStorage` (clave `ecs-student-journey-demo-v1`).
 
 Patrón de extensión: reasignar funciones globales (`layout = function(view){...}`, `paymentSuccess = ...`, `enter = ...`) o rutas (`routes.tienda = ...`) guardando antes la original (`const baseLayout = layout`). Las declaraciones `function` de `app.js` son globales y reasignables.
+
+4. **`student-ui.js`**: dashboard orientado a la siguiente acción, guía de funcionamiento de cinco pasos y acceso para repetirla desde Mi cuenta. Se carga después de journey.js.
 
 ### Estado principal
 
@@ -66,7 +68,7 @@ state.cart[]       [id, nombre, descripción, precio] — formato de app.js
 | `#/mensajes` | Conversaciones; cada maestro con clases reservadas envía una bienvenida. |
 | `#/perfil` | Mi cuenta y preferencias (desde el menú del avatar). |
 
-Menú lateral e inferior: Inicio, Reservar, Mis reservas, Tienda. Mensajes (con contador de no leídos) y Mi cuenta están en el encabezado. **Mis clases** sigue existiendo (`#/clases`), pero está oculta del menú por petición del usuario.
+Navegación inferior: Inicio, Reservar, Mis reservas (contador de próximas clases), Ayuda. Menú lateral: Inicio, Mis paquetes, Ayuda; sin Reservar, Mis reservas ni avatar. Mensajes (con contador de no leídos) y Mi cuenta están en el encabezado. **Mis clases** sigue existiendo (`#/clases`), pero está oculta del menú por petición del usuario.
 
 ## 5. Reglas implementadas (y supuestos por confirmar)
 
@@ -112,8 +114,8 @@ En la landing: `81cdd47`, que abre la plataforma en la misma pestaña.
 ### Errores conocidos
 
 - [ ] **Cancelar** una reserva (`window.cancel` en `app.js`) no devuelve la clase al paquete: hay que descontar `learner.package.scheduled`.
-- [ ] **Reagendar** (`window.rebook`) borra la reserva y abre Reservar, pero tampoco devuelve la clase y aún arma un `state.booking` del flujo antiguo.
-- [ ] Mis reservas no ordena por fecha: la primera clase entra al inicio y la agenda al final. Ordenar por `iso`.
+- [x] Reagendar ya no borra reservas: `student-ui.js` muestra un aviso sobre 24 horas y módulo pendiente. La operación real sigue sin implementarse.
+- [x] Mis reservas ordena las próximas clases por fecha y hora y separa el historial; el contador inferior incluye solo próximas clases.
 - [ ] El monedero muestra siempre "$150 · Saldo suficiente", incluso con el paquete de $160.
 
 ### Producto y contenido (lo define el cliente)
@@ -137,3 +139,23 @@ En la landing: `81cdd47`, que abre la plataforma en la misma pestaña.
 
 - [ ] Abrir el pull request `feature/flujo-alumno-144-clases` → `main` (el usuario pidió esperar).
 - [ ] Al fusionar a `main`, revisar desde qué rama publica GitHub Pages.
+
+## Actualización 2.4.1 — móvil e inicio
+
+- Inicio sustituye el hero y las métricas repetidas por próxima clase o siguiente acción, saldo disponible, progreso 48/96/144, metodología y Memo coins.
+- Guía opcional de cinco pasos en el primer acceso al dashboard de esta versión. Se recuerda en localStorage (`ecs-student-guide-v1`); puede repetirse desde Inicio o Mi cuenta. Se puede cerrar, omitir, volver o avanzar; usa dialog nativo para teclado y foco.
+- Correcciones móviles de min-width, rejillas, compras, checkout, cuenta, mensajes, horarios y botones. Tarjetas de maestro compactas; los pasos de compra vuelven arriba.
+- Los precios, pagos y datos continúan siendo de demostración. Reservar mantiene su aviso En construcción.
+
+## Actualización 2.4.2 — acceso a cuenta
+
+Avatar del encabezado dentro de un botón con texto Mi cuenta, borde, fondo e indicador desplegable. Estados hover, pulsado, foco y menú abierto. Escape cierra el menú y devuelve el foco al botón.
+
+## Actualización 2.5.0 — navegación, ayuda y reservas
+
+- Barra inferior permanente de cuatro destinos, más grande: Inicio, Reservar, Mis reservas y Ayuda. Mis reservas muestra el contador de próximas clases. Se conserva también en escritorio para mantener accesible la agenda después de quitarla del menú lateral.
+- Menú lateral: Inicio, Mis paquetes y Ayuda; sin avatar, Reservar ni Mis reservas. Mi cuenta continúa en el encabezado.
+- `#/ayuda`: guía, temas de orientación, preguntas frecuentes, chat de soporte de demostración y enlace a WhatsApp.
+- `#/reservas`: tarjetas ordenadas por fecha, pestañas Próximas/Historial, Ir a clase con Google Meet y Reagendar. Sin Cancelar.
+- Reagendar solo informa que se requieren al menos 24 horas y que el módulo está pendiente. No modifica reservas ni paquetes.
+- Meet usa la URL asignada si es válida; en su ausencia abre https://meet.google.com/ y se indica que es demostración. No se inventaron salones.

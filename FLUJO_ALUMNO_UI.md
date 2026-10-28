@@ -1,6 +1,6 @@
 # Flujo del alumno — interfaz de demostración
 
-Rama: `feature/flujo-alumno-144-clases` · Versión 2.3.2-ui · Actualizado: 28 de octubre de 2026.
+Rama: `feature/flujo-alumno-144-clases` · Versión 2.5.0-ui · Actualizado: 28 de octubre de 2026.
 
 Alcance: solo interfaz. Sin autenticación, cargos, correos, disponibilidad real ni cuentas reales. Las preferencias, el paquete y las reservas se conservan en este navegador. Arquitectura, reglas y pendientes: `CONTEXTO_IA.md`. Cuestionario inicial: `PRIMER_ACCESO_UI.md`.
 
@@ -47,3 +47,7 @@ El mes de vigencia y la referencia de 9 meses a 4 clases por semana o 18 meses a
 - Sintaxis JavaScript comprobada con `node --check`.
 - Recorridos probados en navegador a 1440, 800, 375 y 320 px: cuestionario, compra con tarjeta y con monedero, agenda semanal (límite de días, quitar fechas, cambio de maestro), bienvenida en Mensajes con contador, Tienda, menú del teléfono e ida y vuelta con la landing.
 - Pendiente: revisión en dispositivos reales.
+
+## Navegación y ayuda (2.5.0)
+
+Barra inferior: Inicio, Reservar, Mis reservas con contador de próximas clases y Ayuda. Menú lateral: Inicio, Mis paquetes, Ayuda. Mi cuenta está solo en el encabezado. La ruta #/ayuda incluye guía, FAQ y soporte. Mis reservas separa próximas e historial; ofrece Ir a clase (Meet) y Reagendar (solo aviso de 24 horas y módulo pendiente, sin modificar datos). Ya no ofrece Cancelar.

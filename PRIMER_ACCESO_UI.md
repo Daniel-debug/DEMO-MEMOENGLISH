@@ -28,3 +28,7 @@ Cinco ilustraciones originales generadas con ImageGen, optimizadas como WebP en 
 ## Validación
 
 Pruebas de estado: acceso inicial y recurrente, ramas del cuestionario, restauración local, cierre de sesión sin borrar preferencias y límites 0/48/49/96/97/143/144. Revisión de recorrido en navegador para el resumen, bienvenida y edición desde Mi cuenta.
+
+## Guía de funcionamiento (2.4.1)
+
+El primer acceso al tablero ofrece cinco pasos: Inicio, Tienda, agenda, Mensajes y Mi cuenta. Se puede omitir y volver a lanzar desde Guía rápida o Mi cuenta. Su estado se guarda por separado en ecs-student-guide-v1. La bienvenida anterior se sustituye por un inicio compacto que muestra la siguiente acción y el progreso, también en móvil.
