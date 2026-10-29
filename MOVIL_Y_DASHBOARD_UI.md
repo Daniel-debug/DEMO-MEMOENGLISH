@@ -18,3 +18,13 @@ La guía explica Inicio, Tienda, agenda, Mensajes y Mi cuenta. Se ofrece una vez
 - No se verificó en un teléfono físico; se usaron tamaños de navegador.
 
 Los precios y pagos siguen siendo de ejemplo. La agenda mantiene el aviso En construcción. No se modificó ni publicó la landing.
+
+## Navegación, reservas y Ayuda · 2.5.0
+
+- Barra inferior de 88 px: Inicio, Reservar, Mis reservas y Ayuda. Contador de próximas clases; las clases anteriores y canceladas no se cuentan.
+- Menú lateral con Inicio, Mis paquetes y Ayuda; el avatar se mantiene solo en el encabezado.
+- Mis reservas muestra Próximas e Historial, ordena las fechas y ofrece Ir a clase (Meet en otra pestaña) y Reagendar (aviso de 24 horas y módulo pendiente). No ofrece Cancelar.
+- Ayuda contiene guía, orientación por tema, preguntas frecuentes y accesos a soporte.
+- Se revisaron Reservas, Ayuda, Inicio y Mis paquetes a 320, 375, 430, 768 y 1440 px: sin desbordamiento horizontal; contador 1 en la reserva de ejemplo.
+- Se comprobó que el aviso de reagendado conserva la reserva y que los accesos a Meet abren una nueva pestaña. Se valida el dominio; sin salón asignado se abre la portada de Meet, identificada como demostración.
+- Siete pruebas funcionales aprobadas. Capturas en documentos/capturas-2.5.0/. Cambios locales, sin publicar.

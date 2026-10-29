@@ -1,6 +1,6 @@
 # Contexto para IA y nuevos colaboradores
 
-Actualizado: 28 de octubre de 2026 · Versión del prototipo: **2.5.0-ui** · Rama: `feature/flujo-alumno-144-clases`.
+Actualizado: 28 de octubre de 2026 · Versión del prototipo: **2.7.1-ui** · Rama: `feature/flujo-alumno-144-clases`.
 
 Este archivo es el punto de entrada para retomar el trabajo sin el historial de la conversación. Explica qué hay, cómo está armado, qué decisiones se tomaron y qué falta. Leer después: `FLUJO_ALUMNO_UI.md` (recorrido del alumno) y `PRIMER_ACCESO_UI.md` (cuestionario inicial).
 
@@ -159,3 +159,40 @@ Avatar del encabezado dentro de un botón con texto Mi cuenta, borde, fondo e in
 - `#/reservas`: tarjetas ordenadas por fecha, pestañas Próximas/Historial, Ir a clase con Google Meet y Reagendar. Sin Cancelar.
 - Reagendar solo informa que se requieren al menos 24 horas y que el módulo está pendiente. No modifica reservas ni paquetes.
 - Meet usa la URL asignada si es válida; en su ausencia abre https://meet.google.com/ y se indica que es demostración. No se inventaron salones.
+
+## Actualización 2.5.1 — barra tipo BBVA
+
+Barra inferior flotante con margen a los lados y abajo, esquinas redondeadas, iconos azul de marca y opción activa circular azul con símbolo blanco. Se retiró el fondo amarillo de la opción activa. Se conservan los cuatro destinos y el contador de próximas clases.
+
+## Actualización 2.5.2 — referencia móvil aportada
+
+Barra ajustada a la captura del usuario: altura 72 px, círculo activo 38 px, iconos de trazo fino 23 px y etiquetas compactas. Azul de navegación, cuatro destinos y contador de próximas clases.
+
+## Actualización 2.5.3 — colores de marca e iconos distintos
+
+La referencia de BBVA solo define forma y proporciones. Mantener azul ECS, amarillo ECS y neutros originales: círculo activo amarillo con icono oscuro. Reservar usa calendario con +; Mis reservas usa una lista de confirmaciones, sin forma de calendario.
+
+
+## Cambios locales 2.7.1-ui · navegación, bienvenida y reservas
+
+- La navegación inferior queda exclusivamente para móvil (hasta 1000 px). En escritorio, Inicio, Reservar, Mis reservas, Mis paquetes y Ayuda aparecen en el menú lateral. Amarillo activo móvil más suave: #f1dc88.
+- Se recupera la bienvenida antes del primer dashboard. De momento es una presentación animada con controles de reproducción; el video oficial sigue pendiente. Configurar WELCOME_VIDEO_URL en student-ui.js cuando exista. Se puede repetir desde Mi cuenta y Ayuda. Estado local independiente ecs-welcome-film-v1.
+- STUDENT_TOUR_ENABLED=false desactiva el tour de la aplicación y sus accesos visibles; se conserva su código para retomarlo después.
+- Reservar ahora permite elegir maestro, fechas y horarios individuales, añadir varias clases y revisar antes de confirmar. No genera recurrencias automáticas. Muestra saldo, vencimiento y ritmo semanal del paquete; evita duplicar fechas y exceder créditos o vigencia. La confirmación sigue siendo simulada en localStorage.
+- Verificación: 10 pruebas node:test aprobadas, sintaxis JS correcta, confirmación de dos clases en navegador manteniendo una reserva previa y ajuste sin desbordamiento a 320, 375, 430, 768 y 1440 px. Capturas en documentos/capturas-2.7.1/.
+
+
+## Cambios locales 2.7.1-ui
+- Reservar: horario seleccionado con amarillo y marca, aria-pressed y segundo toque para quitar. La selección permanece en borrador hasta confirmar.
+- Debajo del horario: solo esta clase, esta y la semana siguiente o todos los mismos días dentro de la vigencia. weeklyBookingChoices valida créditos, fechas ocupadas, límite semanal y vencimiento; cambiar de opción retira únicamente las fechas generadas por esa opción.
+- Mis paquetes: saldo, botones y tarjetas adaptados a móvil; animaciones finitas y respuesta al tocar, con prefers-reduced-motion.
+- Verificados selección/deselección y modos de repetición en navegador; Mis paquetes sin desbordamiento a 320/375/430/768/1440 px. 12 pruebas aprobadas. Se utilizó una compra exclusivamente simulada para probar el paquete activo.
+
+
+### Ajuste 2.7.1-ui: Mis paquetes y compra móvil
+Los paquetes aparecen antes del saldo/estadísticas. Las tarjetas conservan tres columnas donde caben y una composición compacta en teléfonos estrechos. La revisión móvil se centró en el flujo posterior a seleccionar paquete: campos de primera clase, perfil de maestro, botones Anterior/Continuar y resumen final. Botones apilados hasta 700 px, sin desbordamiento en 320/375/430/768/1440 px; 12 pruebas aprobadas. No se confirmó una compra en esta revisión.
+
+
+## Dashboard y paleta · 2.7.1-ui
+Dashboard: cabecera ilustrada personalizada, entrada escalonada, ruta de etapas con meta acumulada, tarjeta de impulso contextual según reservas/paquete. No se inventan rachas ni logros; sigue usando el avance real de la demo. Animaciones finitas y prefers-reduced-motion. Sin desbordamiento a 320/375/430/768/1440 px.
+Paleta de acciones unificada en variables CSS: amarillo #fcda00 con texto oscuro, azul #23374c con texto blanco, secundario blanco con borde neutro y selección suave #f1dc88. Se eliminan gradientes naranja en pagos/reservas y verde en acceso a clase. Verde/rojo siguen reservados para mensajes de estado. Marcas de login social conservadas.
