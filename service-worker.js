@@ -1,12 +1,13 @@
-const CACHE_VERSION = 'ecs-booking-2.7.1-ui';
+const CACHE_VERSION = 'ecs-booking-2.7.2-ui';
 const APP_SHELL = [
+  './assets/fonts/Figtree-Variable.ttf',
   './',
   './index.html',
-  './styles.css?v=2.7.1',
-  './app.js?v=2.7.1',
-  './happy-path.js?v=2.7.1',
-  './journey.js?v=2.7.1',
-  './student-ui.js?v=2.7.1',
+  './styles.css?v=2.7.2',
+  './app.js?v=2.7.2',
+  './happy-path.js?v=2.7.2',
+  './journey.js?v=2.7.2',
+  './student-ui.js?v=2.7.2',
   './assets/onboarding-goal.webp',
   './assets/onboarding-industry.webp',
   './assets/onboarding-profession.webp',

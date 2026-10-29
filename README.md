@@ -2,7 +2,7 @@
 
 Actualizado: 28 de octubre de 2026.
 
-Repositorio actual: `C:\Users\el_da\Documents\git-vega`. Versión del prototipo: **2.7.1-ui**.
+Repositorio actual: `C:\Users\el_da\Documents\git-vega`. Versión del prototipo: **2.7.2-ui**.
 
 **Para retomar el trabajo (personas o IA), empezar por `CONTEXTO_IA.md`**: arquitectura,
 estado, reglas, convenciones y pendientes. El recorrido del alumno está en
@@ -78,7 +78,7 @@ El número de versión debe subirse en **todos estos sitios** en cada cambio:
 | `index.html` | `?v=` de `styles.css` y los scripts | Evita que el navegador use archivos viejos |
 | `README.md` | Versión del prototipo | Referencia |
 
-Llevan el mismo número a propósito (`2.7.1-ui` y `ecs-booking-2.7.1-ui`). Así, si el menú
+Llevan el mismo número a propósito (`2.7.2-ui` y `ecs-booking-2.7.2-ui`). Así, si el menú
 lateral de un teléfono muestra una versión vieja, se sabe de inmediato que está sirviendo
 una caché anterior y basta con una recarga forzada.
 
@@ -170,10 +170,10 @@ producto real todavía habría que integrar cada pantalla con WordPress, Amelia,
 WooCommerce, ClassPress, BP Better Messages y TeraWallet.
 
 
-## Inicio y móvil (2.7.1)
+## Inicio y móvil (2.7.2)
 
 El dashboard y la guía de funcionamiento están en `student-ui.js`, que se carga después de `journey.js`. La guía puede repetirse desde Inicio o Mi cuenta. Detalle y validación: `MOVIL_Y_DASHBOARD_UI.md`. Pruebas: `node --test tests/student-ui.test.cjs`.
 
-## Navegación y ayuda (2.7.1)
+## Navegación y ayuda (2.7.2)
 
 Barra inferior de mayor tamaño: Inicio, Reservar, Mis reservas con contador y Ayuda. Mis paquetes queda en el menú lateral. Ayuda reúne guía, preguntas frecuentes y soporte. Las reservas permiten abrir Meet; Reagendar solo informa de la anticipación de 24 horas y del módulo pendiente. No hay botón Cancelar.
