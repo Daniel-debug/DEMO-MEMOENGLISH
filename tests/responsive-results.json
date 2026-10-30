@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-30T17:32:55.197Z",
+  "browser": "Microsoft Edge / Chromium",
+  "widths": [
+    320,
+    360,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "screenChecks": 66,
+  "findings": [],
+  "errors": [],
+  "purchaseFlowWidths": [
+    320,
+    390,
+    1440
+  ]
+}

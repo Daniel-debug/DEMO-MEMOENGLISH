@@ -1,6 +1,6 @@
 # Contexto para IA y nuevos colaboradores
 
-Actualizado: 28 de octubre de 2026 · Versión del prototipo: **2.7.2-ui** · Rama: `feature/flujo-alumno-144-clases`.
+Actualizado: 28 de octubre de 2026 · Versión del prototipo: **2.7.3-ui** · Rama: `feature/flujo-alumno-144-clases`.
 
 Este archivo es el punto de entrada para retomar el trabajo sin el historial de la conversación. Explica qué hay, cómo está armado, qué decisiones se tomaron y qué falta. Leer después: `FLUJO_ALUMNO_UI.md` (recorrido del alumno) y `PRIMER_ACCESO_UI.md` (cuestionario inicial).
 
@@ -173,26 +173,106 @@ Barra ajustada a la captura del usuario: altura 72 px, círculo activo 38 px, ic
 La referencia de BBVA solo define forma y proporciones. Mantener azul ECS, amarillo ECS y neutros originales: círculo activo amarillo con icono oscuro. Reservar usa calendario con +; Mis reservas usa una lista de confirmaciones, sin forma de calendario.
 
 
-## Cambios locales 2.7.2-ui · navegación, bienvenida y reservas
+## Cambios locales 2.7.3-ui · navegación, bienvenida y reservas
 
 - La navegación inferior queda exclusivamente para móvil (hasta 1000 px). En escritorio, Inicio, Reservar, Mis reservas, Mis paquetes y Ayuda aparecen en el menú lateral. Amarillo activo móvil más suave: #f1dc88.
 - Se recupera la bienvenida antes del primer dashboard. De momento es una presentación animada con controles de reproducción; el video oficial sigue pendiente. Configurar WELCOME_VIDEO_URL en student-ui.js cuando exista. Se puede repetir desde Mi cuenta y Ayuda. Estado local independiente ecs-welcome-film-v1.
 - STUDENT_TOUR_ENABLED=false desactiva el tour de la aplicación y sus accesos visibles; se conserva su código para retomarlo después.
 - Reservar ahora permite elegir maestro, fechas y horarios individuales, añadir varias clases y revisar antes de confirmar. No genera recurrencias automáticas. Muestra saldo, vencimiento y ritmo semanal del paquete; evita duplicar fechas y exceder créditos o vigencia. La confirmación sigue siendo simulada en localStorage.
-- Verificación: 10 pruebas node:test aprobadas, sintaxis JS correcta, confirmación de dos clases en navegador manteniendo una reserva previa y ajuste sin desbordamiento a 320, 375, 430, 768 y 1440 px. Capturas en documentos/capturas-2.7.2/.
+- Verificación: 10 pruebas node:test aprobadas, sintaxis JS correcta, confirmación de dos clases en navegador manteniendo una reserva previa y ajuste sin desbordamiento a 320, 375, 430, 768 y 1440 px. Capturas en documentos/capturas-2.7.3/.
 
 
-## Cambios locales 2.7.2-ui
+## Cambios locales 2.7.3-ui
 - Reservar: horario seleccionado con amarillo y marca, aria-pressed y segundo toque para quitar. La selección permanece en borrador hasta confirmar.
 - Debajo del horario: solo esta clase, esta y la semana siguiente o todos los mismos días dentro de la vigencia. weeklyBookingChoices valida créditos, fechas ocupadas, límite semanal y vencimiento; cambiar de opción retira únicamente las fechas generadas por esa opción.
 - Mis paquetes: saldo, botones y tarjetas adaptados a móvil; animaciones finitas y respuesta al tocar, con prefers-reduced-motion.
 - Verificados selección/deselección y modos de repetición en navegador; Mis paquetes sin desbordamiento a 320/375/430/768/1440 px. 12 pruebas aprobadas. Se utilizó una compra exclusivamente simulada para probar el paquete activo.
 
 
-### Ajuste 2.7.2-ui: Mis paquetes y compra móvil
+### Ajuste 2.7.3-ui: Mis paquetes y compra móvil
 Los paquetes aparecen antes del saldo/estadísticas. Las tarjetas conservan tres columnas donde caben y una composición compacta en teléfonos estrechos. La revisión móvil se centró en el flujo posterior a seleccionar paquete: campos de primera clase, perfil de maestro, botones Anterior/Continuar y resumen final. Botones apilados hasta 700 px, sin desbordamiento en 320/375/430/768/1440 px; 12 pruebas aprobadas. No se confirmó una compra en esta revisión.
 
 
-## Dashboard y paleta · 2.7.2-ui
+## Dashboard y paleta · 2.7.3-ui
 Dashboard: cabecera ilustrada personalizada, entrada escalonada, ruta de etapas con meta acumulada, tarjeta de impulso contextual según reservas/paquete. No se inventan rachas ni logros; sigue usando el avance real de la demo. Animaciones finitas y prefers-reduced-motion. Sin desbordamiento a 320/375/430/768/1440 px.
 Paleta de acciones unificada en variables CSS: amarillo #fcda00 con texto oscuro, azul #23374c con texto blanco, secundario blanco con borde neutro y selección suave #f1dc88. Se eliminan gradientes naranja en pagos/reservas y verde en acceso a clase. Verde/rojo siguen reservados para mensajes de estado. Marcas de login social conservadas.
+
+
+## Cursos pregrabados · 2.8.0-ui
+Nuevo módulo `#/cursos` en el sidebar izquierdo. Ver `CURSOS_PREGRABADOS.md` para alcance, video de prueba, persistencia demo y contrato de backend. Script `courses.js` cargado después de `student-ui.js`.
+
+
+### Experiencia de cursos · 2.8.1-ui
+Cabecera con resumen de avance, filtros rápidos, tarjetas animadas, estados de carga, modo de video ampliado en escritorio, velocidad de reproducción y temario en panel modal móvil. Vocabulario y práctica en pestañas accesibles por teclado; confirmación animada al completar y respuesta visual en ejercicios. Animaciones respetan prefers-reduced-motion. Implementado con CSS y controles nativos, sin dependencias externas adicionales.
+
+
+### Corrección de alcance · 2.8.2-ui
+Mis grabaciones (`#/cursos`) pertenece al programa existente de 144 clases pagadas. Reemplaza el catálogo independiente anterior: reproductor y lista compacta, sin banners ni material ficticio. No hay grabaciones reales conectadas todavía. Ver `CURSOS_PREGRABADOS.md` para el contrato de integración y permisos.
+
+
+### Material por clase y muestra · 2.8.3-ui
+Clase 1 incluye una muestra técnica CC0 de MDN (5 segundos, flores sin audio, identificada como prueba), guía TXT descargable y 3 preguntas de saludos/presentaciones. La muestra solo se añade cuando el servicio no devuelve clase 1; no sustituye una grabación existente ni cuenta como grabación real. Cada clase muestra pestañas compactas Material didáctico/Practicar debajo del reproductor, con estado pendiente si no hay contenido. El contrato admite resources [{title,url,type}], vocabulary [[inglés,español]], practice [{prompt,options,answer: índice}]. El adaptador de reservas admite recordingResources, recordingVocabulary y recordingPractice. La práctica de muestra no modifica el progreso académico, créditos ni calificaciones del alumno.
+
+
+### Acabado corporativo · 2.8.4-ui
+Se retiró el selector externo de velocidad: se usan los controles nativos del video. Superficies con relieves, sombras y gradientes discretos; selección de clase, pestañas, descargas y respuestas con transiciones cortas. Biblioteca fija al desplazarse en escritorio. Sin banners ni mayor altura de contenido; las animaciones respetan reducir movimiento.
+
+
+### Aula de estudio · 2.9.0-ui
+Patrón de navegación tipo curso: video amplio, contenido a la derecha por secciones Básico/Intermedio/Avanzado desplegables y recursos debajo. Móvil: pestañas Contenido/Material didáctico/Practicar, video fijo al desplazarse y navegación inferior global oculta solo dentro del aula para no obstruirla; el menú superior sigue disponible. Reorganizar al cambiar ancho no recrea el video. Se conservan colores ECS y controles nativos.
+
+
+### Desplazamiento móvil y pendientes · 2.9.1-ui
+El video vuelve a desplazarse naturalmente; solo se anclan las pestañas bajo el encabezado. Se elimina el doble sticky y el cálculo de altura con ResizeObserver. Lista larga sin scroll anidado ni anclaje automático al expandir pendientes; cambio de pestaña desde una posición profunda vuelve al comienzo de su contenido. Pendientes invitan a reservar y explican que la grabación se publica después de tomar la clase; si la clase ya está reservada o tomada se muestra el mensaje correspondiente en lugar de pedir reservar otra vez.
+
+
+### Navegación de grabaciones · 2.9.2-ui
+Ver pendientes se activa al abrir el aula. Mis grabaciones aparece inmediatamente debajo de Mis reservas en el menú lateral.
+
+
+### Mensajería · 3.0.0-ui
+Nuevo `messaging.js` después de `courses.js`: chat alumno–profesor y asistente ECS, sin grupos ni contactos de alumnos. Bot local de orientación, filtros, borradores/historial local, contadores y vista móvil adaptable al teclado. Envío real a profesores pendiente de backend. Ver `MENSAJERIA.md`.
+
+
+### Conversación de prueba con Memo · 3.0.1-ui
+Por petición explícita del usuario, Memo aparece como contacto de muestra incluso sin reserva. Se añade una única invitación de ejemplo a practicar en su casa, rotulada Mensaje de prueba. No crea una reserva ni envía mensajes reales. Ruta directa: `#/mensajes/t-memo`.
+
+
+### Mensaje de prueba · 3.0.2-ui
+Texto de la muestra de Memo actualizado a la frase exacta solicitada por el usuario. Al abrir el chat se actualiza también la muestra ya guardada en este navegador.
+
+
+### Mensaje de prueba · 3.0.3-ui
+Muestra de Memo reemplazada por el nuevo texto exacto proporcionado por el usuario; también actualiza la copia local al abrir el chat.
+
+
+### Adjuntos · 3.0.4-ui
+Botón de clip para documentos y fotos (hasta 5 por mensaje, 10 MB cada uno), vista previa, eliminación antes de enviar, pegado de imágenes y descarga desde el mensaje. Los archivos enviados se guardan como blobs en IndexedDB y su metadato en el historial local; se recuperan al recargar. Los archivos seleccionados sin enviar se conservan en memoria por conversación. Bot no analiza contenido de archivos y lo indica. Todavía no hay subida ni envío externo al profesor.
+
+
+### Dashboard · 3.0.5-ui
+La tarjeta de próxima clase usa azul petróleo más definido, texto claro y acción amarilla. Entradas escalonadas de tarjetas/etapas, revelado de progreso y microinteracciones de iconos y botones, sin añadir contenido ni alterar avance. Animaciones respetan reducir movimiento; hover solo para dispositivos compatibles.
+
+
+### Sidebar corporativo · 3.0.6-ui
+Navegación agrupada en Mi aprendizaje y Servicios, iconos en superficies discretas, selección con acento amarillo y aria-current, colores azul petróleo y tipografía afinada. Instalación y cierre de sesión con tratamiento sobrio. Logo, orden de rutas y ancho de escritorio conservados. Menú móvil desplazable y animaciones breves compatibles con reducir movimiento.
+
+
+### Próxima clase · 3.0.7-ui
+Se recupera el fondo claro de la tarjeta, con un tinte azul ligeramente más definido, texto oscuro, borde suave y elevación Material discreta. Se retiran el fondo petróleo y sus adornos; las animaciones del dashboard se conservan.
+
+
+### Material y legibilidad · 3.0.8-ui
+Tarjeta de próxima clase clara con elevación suave, fecha y acción en cápsulas. Superficies y balances Material con radios consistentes y sombras sin bordes de relieve duros. Sidebar con textos más grandes/contrastados y seminegrita, selección tonal clara con texto oscuro e icono amarillo; etiquetas de sección más legibles. Se conserva estructura y orden.
+
+
+### Siguientes reservas · 3.0.9-ui
+La tarjeta principal conserva la reserva más cercana y añade a su derecha las siguientes dos reservas válidas ordenadas por fecha, sin repetir la principal ni incluir canceladas/completadas/pasadas. Móvil: resumen debajo de la principal. Si no hay más reservas se invita a agendar, sin inventar clases.
+
+
+### Agenda visual · 3.0.10-ui
+Panel de siguientes clases con fondo propio y divisor de 2 px, tarjetas numeradas 01/02 y mayor jerarquía de fechas. En móvil la clase principal incluye acción de ancho completo y las siguientes se presentan como filas independientes debajo de una separación marcada. Sin cambios de datos ni navegación.
+
+
+### Revisión responsive · 3.0.11-ui
+Campos de primera clase uniformes (52 px, fuente 16 px), selector de hora sin recortes y disponibilidad validada con hora de Ciudad de México antes de revisión. Matriz responsive de 86 pantallas/anchos y pruebas de compra completa, primer acceso, agenda, chat, adjuntos y grabaciones. Alcance, pruebas y límites en `REVISION_RESPONSIVE.md`.

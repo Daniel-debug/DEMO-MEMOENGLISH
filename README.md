@@ -2,7 +2,7 @@
 
 Actualizado: 28 de octubre de 2026.
 
-Repositorio actual: `C:\Users\el_da\Documents\git-vega`. Versión del prototipo: **2.7.2-ui**.
+Repositorio actual: `C:\Users\el_da\Documents\git-vega`. Versión del prototipo: **2.7.3-ui**.
 
 **Para retomar el trabajo (personas o IA), empezar por `CONTEXTO_IA.md`**: arquitectura,
 estado, reglas, convenciones y pendientes. El recorrido del alumno está en
@@ -78,7 +78,7 @@ El número de versión debe subirse en **todos estos sitios** en cada cambio:
 | `index.html` | `?v=` de `styles.css` y los scripts | Evita que el navegador use archivos viejos |
 | `README.md` | Versión del prototipo | Referencia |
 
-Llevan el mismo número a propósito (`2.7.2-ui` y `ecs-booking-2.7.2-ui`). Así, si el menú
+Llevan el mismo número a propósito (`2.7.3-ui` y `ecs-booking-2.7.3-ui`). Así, si el menú
 lateral de un teléfono muestra una versión vieja, se sabe de inmediato que está sirviendo
 una caché anterior y basta con una recarga forzada.
 
@@ -170,10 +170,90 @@ producto real todavía habría que integrar cada pantalla con WordPress, Amelia,
 WooCommerce, ClassPress, BP Better Messages y TeraWallet.
 
 
-## Inicio y móvil (2.7.2)
+## Inicio y móvil (2.7.3)
 
 El dashboard y la guía de funcionamiento están en `student-ui.js`, que se carga después de `journey.js`. La guía puede repetirse desde Inicio o Mi cuenta. Detalle y validación: `MOVIL_Y_DASHBOARD_UI.md`. Pruebas: `node --test tests/student-ui.test.cjs`.
 
-## Navegación y ayuda (2.7.2)
+## Navegación y ayuda (2.7.3)
 
 Barra inferior de mayor tamaño: Inicio, Reservar, Mis reservas con contador y Ayuda. Mis paquetes queda en el menú lateral. Ayuda reúne guía, preguntas frecuentes y soporte. Las reservas permiten abrir Meet; Reagendar solo informa de la anticipación de 24 horas y del módulo pendiente. No hay botón Cancelar.
+
+
+## Cursos pregrabados · 2.8.0-ui
+Nuevo módulo `#/cursos` en el sidebar izquierdo. Ver `CURSOS_PREGRABADOS.md` para alcance, video de prueba, persistencia demo y contrato de backend. Script `courses.js` cargado después de `student-ui.js`.
+
+
+### Experiencia de cursos · 2.8.1-ui
+Cabecera con resumen de avance, filtros rápidos, tarjetas animadas, estados de carga, modo de video ampliado en escritorio, velocidad de reproducción y temario en panel modal móvil. Vocabulario y práctica en pestañas accesibles por teclado; confirmación animada al completar y respuesta visual en ejercicios. Animaciones respetan prefers-reduced-motion. Implementado con CSS y controles nativos, sin dependencias externas adicionales.
+
+
+### Corrección de alcance · 2.8.2-ui
+Mis grabaciones (`#/cursos`) pertenece al programa existente de 144 clases pagadas. Reemplaza el catálogo independiente anterior: reproductor y lista compacta, sin banners ni material ficticio. No hay grabaciones reales conectadas todavía. Ver `CURSOS_PREGRABADOS.md` para el contrato de integración y permisos.
+
+
+### Material por clase y muestra · 2.8.3-ui
+Clase 1 incluye una muestra técnica CC0 de MDN (5 segundos, flores sin audio, identificada como prueba), guía TXT descargable y 3 preguntas de saludos/presentaciones. La muestra solo se añade cuando el servicio no devuelve clase 1; no sustituye una grabación existente ni cuenta como grabación real. Cada clase muestra pestañas compactas Material didáctico/Practicar debajo del reproductor, con estado pendiente si no hay contenido. El contrato admite resources [{title,url,type}], vocabulary [[inglés,español]], practice [{prompt,options,answer: índice}]. El adaptador de reservas admite recordingResources, recordingVocabulary y recordingPractice. La práctica de muestra no modifica el progreso académico, créditos ni calificaciones del alumno.
+
+
+### Acabado corporativo · 2.8.4-ui
+Se retiró el selector externo de velocidad: se usan los controles nativos del video. Superficies con relieves, sombras y gradientes discretos; selección de clase, pestañas, descargas y respuestas con transiciones cortas. Biblioteca fija al desplazarse en escritorio. Sin banners ni mayor altura de contenido; las animaciones respetan reducir movimiento.
+
+
+### Aula de estudio · 2.9.0-ui
+Patrón de navegación tipo curso: video amplio, contenido a la derecha por secciones Básico/Intermedio/Avanzado desplegables y recursos debajo. Móvil: pestañas Contenido/Material didáctico/Practicar, video fijo al desplazarse y navegación inferior global oculta solo dentro del aula para no obstruirla; el menú superior sigue disponible. Reorganizar al cambiar ancho no recrea el video. Se conservan colores ECS y controles nativos.
+
+
+### Desplazamiento móvil y pendientes · 2.9.1-ui
+El video vuelve a desplazarse naturalmente; solo se anclan las pestañas bajo el encabezado. Se elimina el doble sticky y el cálculo de altura con ResizeObserver. Lista larga sin scroll anidado ni anclaje automático al expandir pendientes; cambio de pestaña desde una posición profunda vuelve al comienzo de su contenido. Pendientes invitan a reservar y explican que la grabación se publica después de tomar la clase; si la clase ya está reservada o tomada se muestra el mensaje correspondiente en lugar de pedir reservar otra vez.
+
+
+### Navegación de grabaciones · 2.9.2-ui
+Ver pendientes se activa al abrir el aula. Mis grabaciones aparece inmediatamente debajo de Mis reservas en el menú lateral.
+
+
+### Mensajería · 3.0.0-ui
+Nuevo `messaging.js` después de `courses.js`: chat alumno–profesor y asistente ECS, sin grupos ni contactos de alumnos. Bot local de orientación, filtros, borradores/historial local, contadores y vista móvil adaptable al teclado. Envío real a profesores pendiente de backend. Ver `MENSAJERIA.md`.
+
+
+### Conversación de prueba con Memo · 3.0.1-ui
+Por petición explícita del usuario, Memo aparece como contacto de muestra incluso sin reserva. Se añade una única invitación de ejemplo a practicar en su casa, rotulada Mensaje de prueba. No crea una reserva ni envía mensajes reales. Ruta directa: `#/mensajes/t-memo`.
+
+
+### Mensaje de prueba · 3.0.2-ui
+Texto de la muestra de Memo actualizado a la frase exacta solicitada por el usuario. Al abrir el chat se actualiza también la muestra ya guardada en este navegador.
+
+
+### Mensaje de prueba · 3.0.3-ui
+Muestra de Memo reemplazada por el nuevo texto exacto proporcionado por el usuario; también actualiza la copia local al abrir el chat.
+
+
+### Adjuntos · 3.0.4-ui
+Botón de clip para documentos y fotos (hasta 5 por mensaje, 10 MB cada uno), vista previa, eliminación antes de enviar, pegado de imágenes y descarga desde el mensaje. Los archivos enviados se guardan como blobs en IndexedDB y su metadato en el historial local; se recuperan al recargar. Los archivos seleccionados sin enviar se conservan en memoria por conversación. Bot no analiza contenido de archivos y lo indica. Todavía no hay subida ni envío externo al profesor.
+
+
+### Dashboard · 3.0.5-ui
+La tarjeta de próxima clase usa azul petróleo más definido, texto claro y acción amarilla. Entradas escalonadas de tarjetas/etapas, revelado de progreso y microinteracciones de iconos y botones, sin añadir contenido ni alterar avance. Animaciones respetan reducir movimiento; hover solo para dispositivos compatibles.
+
+
+### Sidebar corporativo · 3.0.6-ui
+Navegación agrupada en Mi aprendizaje y Servicios, iconos en superficies discretas, selección con acento amarillo y aria-current, colores azul petróleo y tipografía afinada. Instalación y cierre de sesión con tratamiento sobrio. Logo, orden de rutas y ancho de escritorio conservados. Menú móvil desplazable y animaciones breves compatibles con reducir movimiento.
+
+
+### Próxima clase · 3.0.7-ui
+Se recupera el fondo claro de la tarjeta, con un tinte azul ligeramente más definido, texto oscuro, borde suave y elevación Material discreta. Se retiran el fondo petróleo y sus adornos; las animaciones del dashboard se conservan.
+
+
+### Material y legibilidad · 3.0.8-ui
+Tarjeta de próxima clase clara con elevación suave, fecha y acción en cápsulas. Superficies y balances Material con radios consistentes y sombras sin bordes de relieve duros. Sidebar con textos más grandes/contrastados y seminegrita, selección tonal clara con texto oscuro e icono amarillo; etiquetas de sección más legibles. Se conserva estructura y orden.
+
+
+### Siguientes reservas · 3.0.9-ui
+La tarjeta principal conserva la reserva más cercana y añade a su derecha las siguientes dos reservas válidas ordenadas por fecha, sin repetir la principal ni incluir canceladas/completadas/pasadas. Móvil: resumen debajo de la principal. Si no hay más reservas se invita a agendar, sin inventar clases.
+
+
+### Agenda visual · 3.0.10-ui
+Panel de siguientes clases con fondo propio y divisor de 2 px, tarjetas numeradas 01/02 y mayor jerarquía de fechas. En móvil la clase principal incluye acción de ancho completo y las siguientes se presentan como filas independientes debajo de una separación marcada. Sin cambios de datos ni navegación.
+
+
+### Revisión responsive · 3.0.11-ui
+Campos de primera clase uniformes (52 px, fuente 16 px), selector de hora sin recortes y disponibilidad validada con hora de Ciudad de México antes de revisión. Matriz responsive de 86 pantallas/anchos y pruebas de compra completa, primer acceso, agenda, chat, adjuntos y grabaciones. Alcance, pruebas y límites en `REVISION_RESPONSIVE.md`.

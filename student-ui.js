@@ -277,3 +277,20 @@ routes.dashboard=function(){
  progress.insertAdjacentHTML('beforeend',`<div class="home-next-milestone"><span aria-hidden="true">${total===144?'★':'⚑'}</span><div><b>${total===144?'¡Completaste tu programa!':`Tu próxima meta: ${target} clases`}</b><small>${total===144?'Cada conversación es una nueva oportunidad.':`${remaining} ${remaining===1?'clase más':'clases más'} para completar ${stage.toLowerCase()}. Paso a paso, tú puedes.`}</small></div></div>`);
  $('.home-secondary').insertAdjacentHTML('afterbegin',`<section class="home-card home-daily-step"><header><span class="home-kicker">TU IMPULSO DE HOY</span><span class="home-daily-spark" aria-hidden="true">✦</span></header><h2>${next?'Ya tienes una cita con tu meta.':left?'Hazle un espacio a tu inglés.':'Tu primera clase te espera.'}</h2><p>${next?'Revisa tu próxima clase y llega con ganas de intentarlo. Tu maestro te acompaña.':left?'Elige un horario que vaya contigo. Una clase a la vez también es avanzar.':'Conoce los paquetes y encuentra un ritmo que puedas disfrutar.'}</p><a class="home-daily-action" href="${next?'#/reservas':left?'#/reservar':'#/tienda'}">${next?'Prepararme para mi clase':left?'Elegir mi horario':'Explorar paquetes'} <span aria-hidden="true">→</span></a></section>`);
 };
+
+
+/* Las dos reservas posteriores acompañan a la clase principal, sin repetirla. */
+function followingStudentBookings(bookings=state.bookings,now=new Date()){
+ const first=upcomingStudentBooking(bookings,now);
+ if(!first)return [];
+ return bookings.filter(b=>b!==first&&b.iso&&!/cancelada|completada/i.test(b.status||'')).map(b=>({booking:b,at:new Date(`${b.iso}T${b.time||'00:00'}:00`).valueOf()})).filter(x=>Number.isFinite(x.at)&&x.at+3600000>now.valueOf()).sort((a,b)=>a.at-b.at).slice(0,2).map(x=>x.booking);
+}
+const dashboardBeforeFollowingClasses=routes.dashboard;
+routes.dashboard=function(){
+ dashboardBeforeFollowingClasses();
+ if(!journey.completed)return;
+ const card=$('.student-home .home-next.has-class');if(!card)return;
+ const following=followingStudentBookings();
+ card.classList.add('has-following');
+ card.insertAdjacentHTML('beforeend',`<aside class="home-upcoming" aria-labelledby="home-upcoming-title"><header><h3 id="home-upcoming-title">Próximas clases</h3><small>Después de tu próxima clase</small></header>${following.length?`<ol>${following.map((b,i)=>`<li><a href="#/reservas"><span class="home-upcoming-order">${i===0?'Siguiente':'Después'}</span><b>${safe(shortDate(b.iso))}<span> · ${safe(b.time||'00:00')}</span></b><small>Con ${safe(b.teacher||'tu profesor')}</small></a></li>`).join('')}</ol>`:'<p>Aún no tienes más clases reservadas.</p><a class="home-upcoming-book" href="#/reservar">Agendar otra clase →</a>'}</aside>`);
+};

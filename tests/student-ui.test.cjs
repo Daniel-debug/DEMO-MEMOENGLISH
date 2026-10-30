@@ -95,3 +95,19 @@ test('weekly repeat skips booked dates and never crosses package expiry',()=>{
  assert.deepEqual(Array.from(result.choices,c=>c.iso),['2026-11-16','2026-11-23']);
  assert.equal(result.skipped.length,1);
 });
+
+
+test('following bookings exclude the primary, cancelled, completed and past reservations',()=>{
+ const numbers=run(`followingStudentBookings([
+ {id:4,iso:'2026-11-06',time:'10:00',status:'Confirmada'},
+ {id:2,iso:'2026-11-03',time:'10:00',status:'Confirmada'},
+ {id:1,iso:'2026-11-02',time:'10:00',status:'Confirmada'},
+ {id:3,iso:'2026-11-04',time:'10:00',status:'Confirmada'},
+ {id:5,iso:'2026-11-02',time:'09:00',status:'Cancelada'},
+ {id:6,iso:'2026-11-02',time:'09:30',status:'Completada'},
+ {id:7,iso:'2026-10-01',time:'10:00',status:'Confirmada'}
+ ],new Date('2026-11-01T12:00:00')).map(b=>b.id).join(',')`);
+ assert.equal(numbers,'2,3');
+ assert.equal(run(`followingStudentBookings([],new Date('2026-11-01')).length`),0);
+ assert.equal(run(`followingStudentBookings([{iso:'2026-11-02',time:'10:00'}],new Date('2026-11-01')).length`),0);
+});
